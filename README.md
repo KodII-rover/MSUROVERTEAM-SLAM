@@ -43,7 +43,8 @@
 *   BehaviorTree.ROS2,
 *   ROS2 (интеграция с роботом).
 
-**Минимальные технические требования:** {#minsystemrequirements}
+<a id="minsystemrequirements"></a>
+**Минимальные технические требования:**
 *  Операционная система: Ubuntu 22.04б,
 *  Процессор: AMD Ryzen R7 6800U,
 *  ОЗУ: 16Гб,
