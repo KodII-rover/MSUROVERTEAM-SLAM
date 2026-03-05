@@ -12,8 +12,6 @@
 
 **(открытая библиотека в сети Интернет)**
 
-**Листов 18.**
-
 **2025**
 
 # **АННОТАЦИЯ.**
@@ -28,45 +26,25 @@
 
 # **СОДЕРЖАНИЕ.**
 
-[**АННОТАЦИЯ.** 2](#_Toc219464644)
-
-[**СОДЕРЖАНИЕ.** 3](#_Toc219464645)
-
-[**Общие сведения о программе.** 4](#_Toc219464646)
-
-[**Структура программы.** 5](#_Toc219464647)
-
-[**1\. КЛАСС Localization.** 5](#_Toc219464648)
-
-[**2\. КЛАСС Calculate_localization.** 6](#_Toc219464649)
-
-[**3\. ФУНКЦИЯ get_location().** 6](#_Toc219464650)
-
-[**4\. КЛАСС Mapping.** 7](#_Toc219464651)
-
-[**5\. КЛАСС Construction_map.** 7](#_Toc219464652)
-
-[**6\. ФУНКЦИЯ get_map().** 8](#_Toc219464653)
-
-[**7\. КЛАСС Navigation.** 8](#_Toc219464654)
-
-[**8\. ФУНКЦИЯ move_to().** 8](#_Toc219464655)
-
-[**9\. ФУНКЦИЯ setup().** 9](#_Toc219464656)
-
-[**Интеграция с модулем управления движением ровера на низком уровне.** 10](#_Toc219464657)
-
-[**Настройка ROS2 Humble для работы библиотеки.** 10](#_Toc219464658)
-
-[**Примеры использования библиотеки.** 11](#_Toc219464659)
-
-[**Пример программного кода для автономного движения ровера по указателям движения (стрелкам) и по указателю конечной цели (конусу).** 11](#_Toc219464660)
-
-[**Пошаговая инструкция запуска примера.** 12](#_Toc219464661)
-
-[**Альтернативный пример программного кода для автономного движения ровера до целевых точек с указанием целевой позиции.** 14](#_Toc219464662)
-
-[**Пошаговая инструкция запуска альтернативного примера.** 15](#_Toc219464663)
+* [АННОТАЦИЯ](#аннотация)
+* [Общие сведения о программе](#общие-сведения-о-программе)
+* [Структура программы](#структура-программы)
+* [1. КЛАСС Localization](#1-класс-localization)
+* [2. КЛАСС Calculate_localization](#2-класс-calculate_localization)
+* [3. ФУНКЦИЯ get_location()](#3-функция-get_location)
+* [4. КЛАСС Mapping](#4-класс-mapping)
+* [5. КЛАСС Construction_map](#5-класс-construction_map)
+* [6. ФУНКЦИЯ get_map()](#6-функция-get_map)
+* [7. КЛАСС Navigation](#7-класс-navigation)
+* [8. ФУНКЦИЯ move_to()](#8-функция-move_to)
+* [9. ФУНКЦИЯ setup()](#9-функция-setup)
+* [Интеграция с модулем управления движением ровера](#интеграция-с-модулем-управления-движением-ровера-на-низком-уровне)
+* [Настройка ROS2 Humble](#настройка-ros2-humble-для-работы-библиотеки)
+* [Примеры использования библиотеки](#примеры-использования-библиотеки)
+* [Пример кода для автономного движения](#пример-программного-кода-для-автономного-движения-ровера-по-указателям-движения-стрелкам-и-по-указателю-конечной-цели-конусу)
+* [Пошаговая инструкция запуска](#пошаговая-инструкция-запуска-примера)
+* [Альтернативный пример программного кода](#альтернативный-пример-программного-кода-для-автономного-движения-ровера-до-целевых-точках-с-указанием-целевой-позиции)
+* [Пошаговая инструкция (альтернативная)](#пошаговая-инструкция-запуска-альтернативного-примера)
 
 # **Общие сведения о программе.**
 
@@ -297,573 +275,348 @@
 # **Настройка ROS2 Humble для работы библиотеки.**
 
 Для стабильной работы «Библиотеки автономной навигации по распознанным указателям движения» требуется выполнить следующие настройки пакетов навигации ROS2 Humble.
-
-- eureka_navigation: nav2.yaml
-- eureka_odometry: odometry.yaml
-- eureka_localization: ekf_el_classico.yaml
+```
+eureka_navigation: nav2.yaml
+eureka_odometry: odometry.yaml
+eureka_localization: ekf_el_classico.yaml
+```
 
 Перед запуском автономной навигации по распознанным указателям движения необходимо выполнить глобальный launch-файл, используя команду:
 
+```
 ros2 launch eureka_navigation nav2tune.launch.py
 
+```
 # **Примеры использования библиотеки.**
 
 ## **Пример программного кода для автономного движения ровера по указателям движения (стрелкам) и по указателю конечной цели (конусу).**
 
 С++ код:
 
+``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-
 #include &lt;rclcpp/rclcpp.hpp&gt;
 
 class SetupNode : public rclcpp::Node
-
 {
-
 public:
-
 SetupNode() : Node("setup_node")
-
 {
-
-/\* Инициализируем общую навигационную систему
-
-\*/
-
+// Инициализируем общую навигационную систему
 nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
 
-/\* Запускаем функцию движения по стрелкам
-
-\* с остановкой в 10 секунд у каждой стрелки
-
-\* и завершением движения возле конуса.
-
-\*/
-
+// Запускаем функцию движения по стрелкам с остановкой в 10 секунд у каждой стрелки и завершением движения возле конуса.
 nav->setup();
 
-/\* В данном примере просто выводим на консоль сообщение
-
-\* о завершении миссии.
-
-\*/
-
+// В данном примере просто выводим на консоль сообщение о завершении миссии.
 RCLCPP_INFO(this->get_logger(), "Navigation system setup completed");
-
 }
 
 private:
-
 std::shared_ptr&lt;eureka::Navigation&gt; nav;
-
 };
 
 int main(int argc, char\*\* argv)
-
 {
-
 rclcpp::init(argc, argv);
-
 auto node = std::make_shared&lt;SetupNode&gt;();
-
 rclcpp::spin(node);
-
 rclcpp::shutdown();
-
 return 0;
-
 }
+```
 
 ### **Пошаговая инструкция запуска примера.**
 
 1.  Открыть сессию в терминале и зайти в папку ros2_ws (рабочее пространство)
 2.  Запустите launch-файл общего стека навигации введя команду:
 
+```
 ros2 launch eureka_navigation nav2tune.launch.py
-
+```
 1.  Откройте новую сессию терминала и запустите launch-файл дерева поведения введя команду:
 
+```
 ros2 launch eureka_bt strategy.launch.py
-
+```
 1.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
 
+```
 ros2 pkg create --build-type ament_cmake example
-
+```
 1.  Найдите в пакете файл CMakeLists.txt и введите следующее:
 
+```
 cmake_minimum_required(VERSION 3.16)
-
 project(example LANGUAGES CXX)
-
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
-
 add_compile_options(-Wall -Wextra -Wpedantic)
-
 endif()
 
-\# find dependencies
-
+# find dependencies
 set(THIS_PACKAGE_INCLUDE_DEPENDS
-
 eureka_nav_lib
-
 rclcpp
-
 rcpputils
-
 )
 
 foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
-
 find_package(${Dependency} REQUIRED)
-
 endforeach()
 
 include_directories(include/)
-
 add_executable(${PROJECT_NAME}
-
 src/example.cpp
-
 )
 
 ament_target_dependencies(${PROJECT_NAME}
-
 eureka_nav_lib
-
 rclcpp
-
 rcpputils
-
 )
 
-\# INSTALL
-
+# INSTALL
 install(TARGETS
-
 ${PROJECT_NAME}
-
 DESTINATION lib/${PROJECT_NAME},
-
 DESTINATION lauch/${PROJECT_NAME})
-
 ament_package()
-
+```
 1.  Зайдите в папку src пакета для запуска примера и создайте файл example.cpp введя команду:
 
+```
 touch example.cpp
+```
 
 1.  Вставьте код ниже в файл example.cpp:
+``` cpp
 
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-
 #include &lt;rclcpp/rclcpp.hpp&gt;
 
 class SetupNode : public rclcpp::Node
-
 {
-
 public:
-
 SetupNode() : Node("setup_node")
-
 {
 
-/\* Инициализируем общую навигационную систему
-
-\*/
-
+// Инициализируем общую навигационную систему
 nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
 
-/\* Запускаем функцию движения по стрелкам
-
-\* с остановкой в 10 секунд у каждой стрелки
-
-\* и завершением движения возле конуса.
-
-\*/
-
+// Запускаем функцию движения по стрелкам с остановкой в 10 секунд у каждой стрелки и завершением движения возле конуса.
 nav->setup();
 
-/\* В данном примере просто выводим на консоль сообщение
-
-\* о завершении миссии.
-
-\*/
-
+// В данном примере просто выводим на консоль сообщение о завершении миссии.
 RCLCPP_INFO(this->get_logger(), "Navigation system setup completed");
-
 }
 
 private:
-
 std::shared_ptr&lt;eureka::Navigation&gt; nav;
-
 };
 
-int main(int argc, char\*\* argv)
-
+int main(int argc, char** argv)
 {
-
 rclcpp::init(argc, argv);
-
 auto node = std::make_shared&lt;SetupNode&gt;();
-
 rclcpp::spin(node);
-
 rclcpp::shutdown();
-
 return 0;
-
 }
+```
 
 1.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
-
+```
 colcon build --packages-select example
-
-1.  Дальше введите команду source install/setup.bash для обновления файлов вашего рабочего пространства
+```
+1.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
 2.  Запустите пакет с примером введя команду:
-
+```
 ros2 run example example
-
+```
 ## **Альтернативный пример программного кода для автономного движения ровера до целевых точек с указанием целевой позиции.**
 
 С++ код:
-
+``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-
 #include &lt;rclcpp/rclcpp.hpp&gt;
 
-/\* Пример реализации автономной навигации  
-\* до целевой точки с указанием целевой позиции.
-
-\* Класс SimpleNavigation создан только для данного примера.
-
-\*/
-
+// Пример реализации автономной навигации до целевой точки с указанием целевой позиции.
+// Класс SimpleNavigation создан только для данного примера.
 class SimpleNavigation : public rclcpp::Node
-
 {
-
 public:
-
 SimpleNavigation() : Node("simple_navigation")
-
 {
-
-/\* Инициализируем значения классов библиотеки автономной навигации
-
-\* по распознанным указателям движения.
-
-\*/
-
+// Инициализируем значения классов библиотеки автономной навигации по распознанным указателям движения.
 nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
-
 loc = std::make_shared&lt;eureka::Calculate_localization&gt;(shared_from_this());
-
 map = std::make_shared&lt;eureka::Construction_map&gt;(shared_from_this());
 
-/\* Определяем последовательность прохода ровером целевых точек.
-
-\*/
-
+// Определяем последовательность прохода ровером целевых точек.
 timer_ = this->create_wall_timer(
-
 std::chrono::seconds(45), // Время (в секундах),
 
-// необходимое для движения ровера
-
-// между целевыми точками.
-
+// необходимое для движения ровера между целевыми точками.
 // Значение 45 сек. определено для примера!!!
-
-// В реальных условиях, данное значение может
-
-// быть рассчитано по расстоянию
-
-// и скорости движения ровера.
-
-\[this\]() {
-
+// В реальных условиях, данное значение может быть рассчитано по расстоянию и скорости движения ровера.
+[this]() {
 static int goal_num = 0;
-
 send_goal(goal_num);
-
 goal_num = (goal_num + 1) % 4;
-
 });
-
 }
 
 private:
-
 std::shared_ptr&lt;eureka::Navigation&gt; nav;
-
 std::shared_ptr&lt;eureka::Calculate_localization&gt; loc;
-
 std::shared_ptr&lt;eureka::Construction_map&gt; map;
-
 rclcpp::TimerBase::SharedPtr timer_;
-
-/\* Пример указания целевой позиции для 4-х целевых точек,
-
-\* до которых ровер будет двигаться автономно.  
-\* Точек на маршруте движения ровера может быть любое кол-во.
-
-\*/
-
+// Пример указания целевой позиции для 4-х целевых точек, до которых ровер будет двигаться автономно.
+// Точек на маршруте движения ровера может быть любое кол-во.
 void send_goal(int goal_id)
-
 {
-
-double goals\[4\]\[3\] = {
-
+double goals[4][3] = {
 {1.0, 0.0, 0.0},
-
 {2.0, 1.0, 1.57},
-
 {1.0, 2.0, 3.14},
-
 {0.0, 1.0, -1.57}
-
 };
 
-/\* Вызываем функцию запуска навигации до целевой точки
-
-\* с указанием целевой позиции.
-
-\*/
-
-nav->move_to(goals\[goal_id\]\[0\], goals\[goal_id\]\[1\], goals\[goal_id\]\[2\]);
-
+// Вызываем функцию запуска навигации до целевой точки с указанием целевой позиции.
+nav->move_to(goals[goal_id][0], goals[goal_id][1], goals[goal_id][2]);
 }
-
 };
 
-int main(int argc, char\*\* argv)
-
+int main(int argc, char** argv)
 {
-
 rclcpp::init(argc, argv);
-
 auto node = std::make_shared&lt;SimpleNavigation&gt;();
-
 rclcpp::spin(node);
-
 rclcpp::shutdown();
-
 return 0;
-
 }
-
+```
 ### **Пошаговая инструкция запуска альтернативного примера.**
 
 1.  Открыть сессию в терминале и зайти в папку ros2_ws (рабочее пространство)
 2.  Запустите launch-файл общего стека навигации введя команду:
-
+```
 ros2 launch eureka_navigation nav2tune.launch.py
-
+```
 1.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
-
+```
 ros2 pkg create --build-type ament_cmake example
-
+```
 1.  Найдите в пакете файл CMakeLists.txt и введите следующее:
-
+```
 cmake_minimum_required(VERSION 3.16)
-
 project(example LANGUAGES CXX)
-
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
-
 add_compile_options(-Wall -Wextra -Wpedantic)
-
 endif()
 
-\# find dependencies
-
+# find dependencies
 set(THIS_PACKAGE_INCLUDE_DEPENDS
-
 eureka_nav_lib
-
 rclcpp
-
 rcpputils
-
 )
 
 foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
-
 find_package(${Dependency} REQUIRED)
-
 endforeach()
 
 include_directories(include/)
-
 add_executable(${PROJECT_NAME}
-
 src/example.cpp
-
 )
 
 ament_target_dependencies(${PROJECT_NAME}
-
 eureka_nav_lib
-
 rclcpp
-
 rcpputils
-
 )
 
-\# INSTALL
-
+# INSTALL
 install(TARGETS
-
 ${PROJECT_NAME}
-
 DESTINATION lib/${PROJECT_NAME},
-
 DESTINATION lauch/${PROJECT_NAME})
-
 ament_package()
-
+```
 1.  Зайдите в папку src пакета для запуска примера и создайте файл variant.cpp введя команду:
-
+```
 t touch vatiant.cpp
-
+```
 1.  Вставьте код ниже в файл variant.cpp:
-
+``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-
 #include &lt;rclcpp/rclcpp.hpp&gt;
 
-/\* Пример реализации автономной навигации  
-\* до целевой точки с указанием целевой позиции.
-
-\* Класс SimpleNavigation создан только для данного примера.
-
-\*/
-
+// Пример реализации автономной навигации до целевой точки с указанием целевой позиции.
+// Класс SimpleNavigation создан только для данного примера.
 class SimpleNavigation : public rclcpp::Node
-
 {
-
 public:
-
 SimpleNavigation() : Node("simple_navigation")
-
 {
-
-/\* Инициализируем значения классов библиотеки автономной навигации
-
-\* по распознанным указателям движения.
-
-\*/
-
+// Инициализируем значения классов библиотеки автономной навигации по распознанным указателям движения.
 nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
-
 loc = std::make_shared&lt;eureka::Calculate_localization&gt;(shared_from_this());
-
 map = std::make_shared&lt;eureka::Construction_map&gt;(shared_from_this());
 
-/\* Определяем последовательность прохода ровером целевых точек.
-
-\*/
-
+// Определяем последовательность прохода ровером целевых точек.
 timer_ = this->create_wall_timer(
-
 std::chrono::seconds(45), // Время (в секундах),
 
 // необходимое для движения ровера
-
 // между целевыми точками.
-
 // Значение 45 сек. определено для примера!!!
-
-// В реальных условиях, данное значение может
-
-// быть рассчитано по расстоянию
-
-// и скорости движения ровера.
-
-\[this\]() {
-
+// В реальных условиях, данное значение может быть рассчитано по расстоянию и скорости движения ровера.
+[this]() {
 static int goal_num = 0;
-
 send_goal(goal_num);
-
 goal_num = (goal_num + 1) % 4;
-
 });
-
 }
 
 private:
-
 std::shared_ptr&lt;eureka::Navigation&gt; nav;
-
 std::shared_ptr&lt;eureka::Calculate_localization&gt; loc;
-
 std::shared_ptr&lt;eureka::Construction_map&gt; map;
-
 rclcpp::TimerBase::SharedPtr timer_;
 
-/\* Пример указания целевой позиции для 4-х целевых точек,
-
-\* до которых ровер будет двигаться автономно.  
-\* Точек на маршруте движения ровера может быть любое кол-во.
-
-\*/
-
+// Пример указания целевой позиции для 4-х целевых точек, до которых ровер будет двигаться автономно.
+// Точек на маршруте движения ровера может быть любое кол-во.
 void send_goal(int goal_id)
-
 {
-
-double goals\[4\]\[3\] = {
-
+double goals[4][3] = {
 {1.0, 0.0, 0.0},
-
 {2.0, 1.0, 1.57},
-
 {1.0, 2.0, 3.14},
-
 {0.0, 1.0, -1.57}
-
 };
 
-/\* Вызываем функцию запуска навигации до целевой точки
-
-\* с указанием целевой позиции.
-
-\*/
-
-nav->move_to(goals\[goal_id\]\[0\], goals\[goal_id\]\[1\], goals\[goal_id\]\[2\]);
-
+// Вызываем функцию запуска навигации до целевой точки с указанием целевой позиции.
+nav->move_to(goals[goal_id][0], goals[goal_id][1], goals[goal_id][2]);
 }
-
 };
 
 int main(int argc, char\*\* argv)
-
 {
-
 rclcpp::init(argc, argv);
-
 auto node = std::make_shared&lt;SimpleNavigation&gt;();
-
 rclcpp::spin(node);
-
 rclcpp::shutdown();
-
 return 0;
-
 }
-
+```
 1.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
-
+```
 colcon build --packages-select variant
-
-1.  Дальше введите команду source install/setup.bash для обновления файлов вашего рабочего пространства
+```
+1.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
 2.  Запустите пакет с примером введя команду:
-
+```
 ros2 run variant variant
+```
