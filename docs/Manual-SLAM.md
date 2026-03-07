@@ -295,7 +295,7 @@ ros2 launch eureka_navigation nav2tune.launch.py
 
 ``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-#include &lt;rclcpp/rclcpp.hpp&gt;
+#include <rclcpp/rclcpp.hpp>
 
 class SetupNode : public rclcpp::Node
 {
@@ -303,7 +303,7 @@ public:
 SetupNode() : Node("setup_node")
 {
 // Инициализируем общую навигационную систему
-nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
+nav = std::make_shared<eureka::Navigation>(shared_from_this());
 
 // Запускаем функцию движения по стрелкам с остановкой в 10 секунд у каждой стрелки и завершением движения возле конуса.
 nav->setup();
@@ -313,13 +313,13 @@ RCLCPP_INFO(this->get_logger(), "Navigation system setup completed");
 }
 
 private:
-std::shared_ptr&lt;eureka::Navigation&gt; nav;
+std::shared_ptr<eureka::Navigation> nav;
 };
 
 int main(int argc, char\*\* argv)
 {
 rclcpp::init(argc, argv);
-auto node = std::make_shared&lt;SetupNode&gt;();
+auto node = std::make_shared<SetupNode>();
 rclcpp::spin(node);
 rclcpp::shutdown();
 return 0;
@@ -392,7 +392,7 @@ touch example.cpp
 ``` cpp
 
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-#include &lt;rclcpp/rclcpp.hpp&gt;
+#include <rclcpp/rclcpp.hpp>
 
 class SetupNode : public rclcpp::Node
 {
@@ -401,7 +401,7 @@ SetupNode() : Node("setup_node")
 {
 
 // Инициализируем общую навигационную систему
-nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
+nav = std::make_shared<eureka::Navigation>(shared_from_this());
 
 // Запускаем функцию движения по стрелкам с остановкой в 10 секунд у каждой стрелки и завершением движения возле конуса.
 nav->setup();
@@ -411,13 +411,13 @@ RCLCPP_INFO(this->get_logger(), "Navigation system setup completed");
 }
 
 private:
-std::shared_ptr&lt;eureka::Navigation&gt; nav;
+std::shared_ptr<eureka::Navigation> nav;
 };
 
 int main(int argc, char** argv)
 {
 rclcpp::init(argc, argv);
-auto node = std::make_shared&lt;SetupNode&gt;();
+auto node = std::make_shared<SetupNode>();
 rclcpp::spin(node);
 rclcpp::shutdown();
 return 0;
@@ -438,7 +438,7 @@ ros2 run example example
 С++ код:
 ``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-#include &lt;rclcpp/rclcpp.hpp&gt;
+#include <rclcpp/rclcpp.hpp>
 
 // Пример реализации автономной навигации до целевой точки с указанием целевой позиции.
 // Класс SimpleNavigation создан только для данного примера.
@@ -448,9 +448,9 @@ public:
 SimpleNavigation() : Node("simple_navigation")
 {
 // Инициализируем значения классов библиотеки автономной навигации по распознанным указателям движения.
-nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
-loc = std::make_shared&lt;eureka::Calculate_localization&gt;(shared_from_this());
-map = std::make_shared&lt;eureka::Construction_map&gt;(shared_from_this());
+nav = std::make_shared<eureka::Navigation>(shared_from_this());
+loc = std::make_shared<eureka::Calculate_localization>(shared_from_this());
+map = std::make_shared<eureka::Construction_map>(shared_from_this());
 
 // Определяем последовательность прохода ровером целевых точек.
 timer_ = this->create_wall_timer(
@@ -467,9 +467,9 @@ goal_num = (goal_num + 1) % 4;
 }
 
 private:
-std::shared_ptr&lt;eureka::Navigation&gt; nav;
-std::shared_ptr&lt;eureka::Calculate_localization&gt; loc;
-std::shared_ptr&lt;eureka::Construction_map&gt; map;
+std::shared_ptr<eureka::Navigation> nav;
+std::shared_ptr<eureka::Calculate_localization> loc;
+std::shared_ptr<eureka::Construction_map> map;
 rclcpp::TimerBase::SharedPtr timer_;
 // Пример указания целевой позиции для 4-х целевых точек, до которых ровер будет двигаться автономно.
 // Точек на маршруте движения ровера может быть любое кол-во.
@@ -490,7 +490,7 @@ nav->move_to(goals[goal_id][0], goals[goal_id][1], goals[goal_id][2]);
 int main(int argc, char** argv)
 {
 rclcpp::init(argc, argv);
-auto node = std::make_shared&lt;SimpleNavigation&gt;();
+auto node = std::make_shared<SimpleNavigation>();
 rclcpp::spin(node);
 rclcpp::shutdown();
 return 0;
@@ -551,7 +551,7 @@ t touch vatiant.cpp
 1.  Вставьте код ниже в файл variant.cpp:
 ``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
-#include &lt;rclcpp/rclcpp.hpp&gt;
+#include <rclcpp/rclcpp.hpp>
 
 // Пример реализации автономной навигации до целевой точки с указанием целевой позиции.
 // Класс SimpleNavigation создан только для данного примера.
@@ -561,9 +561,9 @@ public:
 SimpleNavigation() : Node("simple_navigation")
 {
 // Инициализируем значения классов библиотеки автономной навигации по распознанным указателям движения.
-nav = std::make_shared&lt;eureka::Navigation&gt;(shared_from_this());
-loc = std::make_shared&lt;eureka::Calculate_localization&gt;(shared_from_this());
-map = std::make_shared&lt;eureka::Construction_map&gt;(shared_from_this());
+nav = std::make_shared<eureka::Navigation>(shared_from_this());
+loc = std::make_shared<eureka::Calculate_localization>(shared_from_this());
+map = std::make_shared<eureka::Construction_map>(shared_from_this());
 
 // Определяем последовательность прохода ровером целевых точек.
 timer_ = this->create_wall_timer(
@@ -581,9 +581,9 @@ goal_num = (goal_num + 1) % 4;
 }
 
 private:
-std::shared_ptr&lt;eureka::Navigation&gt; nav;
-std::shared_ptr&lt;eureka::Calculate_localization&gt; loc;
-std::shared_ptr&lt;eureka::Construction_map&gt; map;
+std::shared_ptr<eureka::Navigation> nav;
+std::shared_ptr<eureka::Calculate_localization> loc;
+std::shared_ptr<eureka::Construction_map> map;
 rclcpp::TimerBase::SharedPtr timer_;
 
 // Пример указания целевой позиции для 4-х целевых точек, до которых ровер будет двигаться автономно.
@@ -605,7 +605,7 @@ nav->move_to(goals[goal_id][0], goals[goal_id][1], goals[goal_id][2]);
 int main(int argc, char\*\* argv)
 {
 rclcpp::init(argc, argv);
-auto node = std::make_shared&lt;SimpleNavigation&gt;();
+auto node = std::make_shared<SimpleNavigation>();
 rclcpp::spin(node);
 rclcpp::shutdown();
 return 0;
