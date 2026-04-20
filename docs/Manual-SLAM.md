@@ -74,118 +74,6 @@
 - BehaviorTree.ROS2,
 - ROS2 (интеграция с роботом).
 
-Установка зависимостей:
-
-ROS2 Humble:
-
-```
-# Проверяем, что в системе используется UTF-8
-locale  
-
-sudo apt update && sudo apt install locales
-sudo locale-gen en_US en_US.UTF-8
-sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-# Проверяем, что локаль применилась
-locale  
-```
-
-```
-# Подключаем репозиторий universe, необходимый для части пакето
-sudo apt install software-properties-common
-sudo add-apt-repository universe
-```
-
-```
-# Устанавливаем curl и добавляем официальный APT-источник ROS 2
-sudo apt update && sudo apt install curl -y
-export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F'"' '{print $4}')
-curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
-sudo dpkg -i /tmp/ros2-apt-source.deb
-```
-
-```
-# Обновляем список пакетов после добавления репозитория ROS 2
-sudo apt update
-```
-
-```
-# Обновляем установленные пакеты системы до актуальных версий
-sudo apt upgrade
-```
-
-```
-# Устанавливаем полную desktop-версию ROS 2 Humble
-sudo apt install ros-humble-desktop
-```
-
-```
-# Устанавливаем инструменты разработчика для ROS 2
-sudo apt install ros-dev-tools
-```
-
-robot_localization:
-
-```
-# Устанавливаем пакет robot_localization для модуля локализации
-sudo apt install ros-humble-robot-localization 
-```
-
-Nav2:
-
-```
-# Устанавливаем Nav2 для модуля навигации
-sudo apt install ros-humble-navigation2
-sudo apt install ros-humble-nav2-bringup
-```
-
-Rtabmap:
-
-```
-# Устанавливаем RTAB-Map для модуля маппинга
-sudo apt install ros-humble-rtabmap-ros
-```
-
-BehaviorTree.CPP:
-
-```
-# Устанавливаем библиотеку BehaviorTree.CPP v3
-sudo apt install ros-humble-behaviortree-cpp-v3
-```
-
-BehaviorTree.ROS2:
-
-```
-# Устанавливаем интеграцию BehaviorTree с ROS 2
-sudo apt install ros-humble-behaviortree-ros2
-```
-Сборка библиотеки MSUROVERTEAM-SLAM:
-
-Переходим в папку src нашего рабочего пространства:
-
-```
-cd ros2_ws/src
-```
-
-Клонируем репозиторий библиотеки в папку src:
-
-```
-git clone https://github.com/KodII-rover/MSUROVERTEAM-SLAM.git
-```
-
-Возвращаемся в папку рабочего пространства:
-
-```
-cd ..
-```
-
-Запускаем билд пакета нашей библиотеки:
-
-```
-colcon build
-```
-
 **СПИСОК ОБЪЕКТОВ ДЛЯ ДОКУМЕНТИРОВАНИЯ.**
 
 1.  Класс Localization - структура данных о положении ровера.
@@ -385,6 +273,118 @@ colcon build
     - cmd_vel - линейные скорости по осям X и Y и угловая скорость ровера по оси Z в формате \[vel_x, vel_y, ang_z\].
 
 # **Настройка ROS2 Humble для работы библиотеки.**
+
+Установка зависимостей:
+
+ROS2 Humble:
+
+```
+# Проверяем, что в системе используется UTF-8
+locale  
+
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Проверяем, что локаль применилась
+locale  
+```
+
+```
+# Подключаем репозиторий universe, необходимый для части пакето
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+```
+
+```
+# Устанавливаем curl и добавляем официальный APT-источник ROS 2
+sudo apt update && sudo apt install curl -y
+export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F'"' '{print $4}')
+curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
+sudo dpkg -i /tmp/ros2-apt-source.deb
+```
+
+```
+# Обновляем список пакетов после добавления репозитория ROS 2
+sudo apt update
+```
+
+```
+# Обновляем установленные пакеты системы до актуальных версий
+sudo apt upgrade
+```
+
+```
+# Устанавливаем полную desktop-версию ROS 2 Humble
+sudo apt install ros-humble-desktop
+```
+
+```
+# Устанавливаем инструменты разработчика для ROS 2
+sudo apt install ros-dev-tools
+```
+
+robot_localization:
+
+```
+# Устанавливаем пакет robot_localization для модуля локализации
+sudo apt install ros-humble-robot-localization 
+```
+
+Nav2:
+
+```
+# Устанавливаем Nav2 для модуля навигации
+sudo apt install ros-humble-navigation2
+sudo apt install ros-humble-nav2-bringup
+```
+
+Rtabmap:
+
+```
+# Устанавливаем RTAB-Map для модуля маппинга
+sudo apt install ros-humble-rtabmap-ros
+```
+
+BehaviorTree.CPP:
+
+```
+# Устанавливаем библиотеку BehaviorTree.CPP v3
+sudo apt install ros-humble-behaviortree-cpp-v3
+```
+
+BehaviorTree.ROS2:
+
+```
+# Устанавливаем интеграцию BehaviorTree с ROS 2
+sudo apt install ros-humble-behaviortree-ros2
+```
+Сборка библиотеки MSUROVERTEAM-SLAM:
+
+Переходим в папку src нашего рабочего пространства:
+
+```
+cd ros2_ws/src
+```
+
+Клонируем репозиторий библиотеки в папку src:
+
+```
+git clone https://github.com/KodII-rover/MSUROVERTEAM-SLAM.git
+```
+
+Возвращаемся в папку рабочего пространства:
+
+```
+cd ..
+```
+
+Запускаем билд пакета нашей библиотеки:
+
+```
+colcon build
+```
 
 Для стабильной работы «Библиотеки автономной навигации по распознанным указателям движения» требуется выполнить следующие настройки пакетов навигации ROS2 Humble.
 ```
