@@ -274,7 +274,7 @@
 
 # **Настройка ROS2 Humble для работы библиотеки.**
 
-Установка зависимостей.
+**Установка зависимостей**.
 
 ROS2 Humble:
 
@@ -360,7 +360,7 @@ BehaviorTree.ROS2:
 # Устанавливаем интеграцию BehaviorTree с ROS 2
 sudo apt install ros-humble-behaviortree-ros2
 ```
-Сборка библиотеки MSUROVERTEAM-SLAM:
+**Сборка библиотеки MSUROVERTEAM-SLAM.**
 
 Переходим в папку src нашего рабочего пространства:
 
