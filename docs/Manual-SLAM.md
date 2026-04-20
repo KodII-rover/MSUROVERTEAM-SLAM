@@ -274,7 +274,7 @@
 
 # **Настройка ROS2 Humble для работы библиотеки.**
 
-Установка зависимостей:
+Установка зависимостей.
 
 ROS2 Humble:
 
@@ -287,12 +287,12 @@ sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# Проверяем, что локаль применилась
+# Проверяем, что в системе применилась UTF-8
 locale  
 ```
 
 ```
-# Подключаем репозиторий universe, необходимый для части пакето
+# Подключаем репозиторий universe, необходимый для пакетов
 sudo apt install software-properties-common
 sudo add-apt-repository universe
 ```
