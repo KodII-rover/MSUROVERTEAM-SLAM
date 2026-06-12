@@ -72,6 +72,11 @@
 - Rtabmap,
 - BehaviorTree.CPP,
 - BehaviorTree.ROS2,
+- realtime-tools,
+- backward-ros,
+- controller-interface,
+- generate-parameter-library,
+- ackermann-msgs,
 - ROS2 (интеграция с роботом).
 
 **СПИСОК ОБЪЕКТОВ ДЛЯ ДОКУМЕНТИРОВАНИЯ.**
@@ -354,18 +359,30 @@ BehaviorTree.CPP:
 sudo apt install ros-humble-behaviortree-cpp-v3
 ```
 
-BehaviorTree.ROS2:
+```
+# Устанавливаем дополнительные зависимости для сборки
+sudo apt ros-humble-realtime-tools
+sudo apt ros-humble-backward-ros
+sudo apt ros-humble-controller-interface
+sudo apt ros-humble-generate-parameter-library
+sudo apt ros-humble-ackermann-msgs
+```
+
+**Сборка библиотеки MSUROVERTEAM-SLAM.**
+
+создадим папку нашего рабочего пространства ros2_ws и папку src внутри папки рабочего пространства ros2_ws:
 
 ```
-# Устанавливаем интеграцию BehaviorTree с ROS 2
-sudo apt install ros-humble-behaviortree-ros2
+cd ~/
+mkdir ros2_ws
+cd ros2_ws
+mkdir src
 ```
-**Сборка библиотеки MSUROVERTEAM-SLAM.**
 
 Переходим в папку src нашего рабочего пространства:
 
 ```
-cd ros2_ws/src
+cd ~/ros2_ws/src
 ```
 
 Клонируем репозиторий библиотеки в папку src:
@@ -379,12 +396,20 @@ git clone https://github.com/KodII-rover/MSUROVERTEAM-SLAM.git
 ```
 cd ..
 ```
+Обновляем переменные окружения:
+
+```
+source /opt/ros/humble/setup.bash
+cd ~/ros2_ws
+```
 
 Запускаем билд пакета нашей библиотеки:
 
 ```
 colcon build
 ```
+
+Во время сборки могут возникнуть предупреждения на терминале. Игнорируйте их.
 
 Для стабильной работы «Библиотеки автономной навигации по распознанным указателям движения» требуется выполнить следующие настройки пакетов навигации ROS2 Humble.
 ```
@@ -397,7 +422,6 @@ eureka_localization: ekf_el_classico.yaml
 
 ```
 ros2 launch eureka_navigation nav2tune.launch.py
-
 ```
 # **Примеры использования библиотеки.**
 
