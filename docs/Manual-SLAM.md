@@ -672,17 +672,17 @@ int main(int argc, char** argv) {
 ```
 ros2 launch eureka_navigation nav2tune.launch.py
 ```
-1.  Откройте новую сессию терминала и запустите launch-файл дерева поведения введя команду:
+3.  Откройте новую сессию терминала и запустите launch-файл дерева поведения введя команду:
 
 ```
 ros2 launch eureka_bt strategy.launch.py
 ```
-1.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
+4.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
 
 ```
 ros2 pkg create --build-type ament_cmake example
 ```
-1.  Найдите в пакете файл CMakeLists.txt и введите следующее:
+5.  Найдите в пакете файл CMakeLists.txt и введите следующее:
 
 ```
 cmake_minimum_required(VERSION 3.16)
@@ -968,8 +968,8 @@ int main(int argc, char** argv) {
 ```
 colcon build --packages-select variant
 ```
-1.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
-2.  Запустите пакет с примером введя команду:
+2.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
+3.  Запустите пакет с примером введя команду:
 ```
 ros2 run variant variant
 ```
