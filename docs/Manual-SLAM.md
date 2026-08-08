@@ -850,11 +850,11 @@ int main(int argc, char** argv) {
 ```
 ros2 launch eureka_navigation nav2tune.launch.py
 ```
-1.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
+3.  Для запуска примера вам также требуется создать пакет, для этого введите команду:
 ```
 ros2 pkg create --build-type ament_cmake example
 ```
-1.  Найдите в пакете файл CMakeLists.txt и введите следующее:
+4.  Найдите в пакете файл CMakeLists.txt и введите следующее:
 ```
 cmake_minimum_required(VERSION 3.16)
 project(example LANGUAGES CXX)
@@ -891,11 +891,11 @@ DESTINATION lib/${PROJECT_NAME},
 DESTINATION lauch/${PROJECT_NAME})
 ament_package()
 ```
-1.  Зайдите в папку src пакета для запуска примера и создайте файл variant.cpp введя команду:
+5.  Зайдите в папку src пакета для запуска примера и создайте файл variant.cpp введя команду:
 ```
 t touch vatiant.cpp
 ```
-1.  Вставьте код ниже в файл variant.cpp:
+6.  Вставьте код ниже в файл variant.cpp:
 ``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
 #include <rclcpp/rclcpp.hpp>
@@ -964,12 +964,12 @@ int main(int argc, char** argv) {
     return 0;
 }
 ```
-1.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
+7.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
 ```
 colcon build --packages-select variant
 ```
-2.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
-3.  Запустите пакет с примером введя команду:
+8.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
+9.  Запустите пакет с примером введя команду:
 ```
 ros2 run variant variant
 ```
