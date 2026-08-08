@@ -720,13 +720,13 @@ DESTINATION lib/${PROJECT_NAME},
 DESTINATION lauch/${PROJECT_NAME})
 ament_package()
 ```
-1.  Зайдите в папку src пакета для запуска примера и создайте файл example.cpp введя команду:
+6.  Зайдите в папку src пакета для запуска примера и создайте файл example.cpp введя команду:
 
 ```
 touch example.cpp
 ```
 
-1.  Вставьте код ниже в файл example.cpp:
+7.  Вставьте код ниже в файл example.cpp:
 ``` cpp
 
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
@@ -764,12 +764,12 @@ int main(int argc, char** argv) {
 }
 ```
 
-1.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
+8.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
 ```
 colcon build --packages-select example
 ```
-1.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
-2.  Запустите пакет с примером введя команду:
+9.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
+10.  Запустите пакет с примером введя команду:
 ```
 ros2 run example example
 ```
