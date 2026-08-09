@@ -719,8 +719,8 @@ rcpputils
 # INSTALL
 install(TARGETS
 ${PROJECT_NAME}
-DESTINATION lib/${PROJECT_NAME},
-DESTINATION lauch/${PROJECT_NAME})
+DESTINATION lib/${PROJECT_NAME})
+								  
 ament_package()
 ```
 6.  Зайдите в папку src пакета для запуска примера и создайте файл example.cpp введя команду:
@@ -890,15 +890,15 @@ rcpputils
 # INSTALL
 install(TARGETS
 ${PROJECT_NAME}
-DESTINATION lib/${PROJECT_NAME},
-DESTINATION lauch/${PROJECT_NAME})
+DESTINATION lib/${PROJECT_NAME})
+								  
 ament_package()
 ```
-5.  Зайдите в папку src пакета для запуска примера и создайте файл variant.cpp введя команду:
+5.  Зайдите в папку src пакета для запуска примера и создайте файл example.cpp введя команду:
 ```
-t touch vatiant.cpp
+touch example.cpp
 ```
-6.  Вставьте код ниже в файл variant.cpp:
+6.  Вставьте код ниже в файл example.cpp:
 ``` cpp
 #include "eureka_nav_lib/eureka_nav_lib.hpp"
 #include <rclcpp/rclcpp.hpp>
@@ -969,10 +969,10 @@ int main(int argc, char** argv) {
 ```
 7.  Вернитесь в директорию ros2_ws и соберите пакет введя команду:
 ```
-colcon build --packages-select variant
+colcon build --packages-select example
 ```
 8.  Дальше введите команду ```source install/setup.bash``` для обновления файлов вашего рабочего пространства
 9.  Запустите пакет с примером введя команду:
 ```
-ros2 run variant variant
+ros2 run example example
 ```
