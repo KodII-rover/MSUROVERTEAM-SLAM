@@ -600,7 +600,7 @@ nano ~/ros2_ws/src/MSUROVERTEAM-SLAM/eureka_localization/config/ekf_el_classico.
 Перед запуском необходимо проверить наличие входных топиков:
 
 ```
-ros2 topic list | grep -E "wheel_states|imu|odometry"
+ros2 topic list | grep -E "wheel_states|imu"
 ```
 
 После изменения конфигурационных файлов необходимо повторно собрать соответствующие пакеты:
